@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createTransaction } from "../../feature/Transactions/TransactionSlice";
+import Header from "../header/Header";
 
 // const {  isLoding, isError } = useSelector((state) => state.transaction);
 const FormInput = () => {
@@ -73,6 +74,7 @@ const FormInput = () => {
                 <button type="submit" className=" bg-slate-400">Add Transaction</button>
                 {/* {!isLoding && isError && <p className=" text-red-400">there was an error occured</p>} */}
             </form>
+
         </div>
     );
 };
