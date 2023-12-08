@@ -11,8 +11,10 @@ function App() {
     <div>
         <Layout>
           <TopHeader />
-          <FormInput />
-          <CardGrid  />
+          <div className=" grid gap-5 grid-cols-2">
+            <FormInput />
+            <CardGrid  />
+          </div>
         </Layout>
     </div>
   )

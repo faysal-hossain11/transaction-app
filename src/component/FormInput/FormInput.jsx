@@ -58,15 +58,16 @@ const FormInput = () => {
         reset();
     }
     return (
-        <div>
+        <div className=" bg-slate-400 p-7 rounded-[10px] h-[330px]">
             <form onSubmit={editMode ? handleUpdate : handleTransaction}>
-                <div>
-                    <label htmlFor="">Name</label>
+                <div className="mb-3">
+                    <label htmlFor="" >Name</label>
                     <input type="text" 
                     placeholder='type your name'
                     required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
+                    className="w-full py-2 px-2 rounded-md outline-none focus:outline-none"
                     />
                 </div>
                <div>
@@ -78,6 +79,7 @@ const FormInput = () => {
                             value="income"
                             checked={type === "income"}
                             onChange={(e) => setType("income")} 
+                            
                         />
                         <span className="checkmark"></span>
                     </label>
@@ -95,17 +97,18 @@ const FormInput = () => {
                         <span className="checkmark"></span>
                     </label>
                 </div>
-                <div>
+                <div className="mb-3">
                     <label htmlFor="">Amount</label>
                     <input type="number"
                     placeholder="type your amount"
                     required
                     value={amount}
                     onChange={(e) => setAmount(e.target.value)}
+                    className="w-full py-2 px-2 rounded-md outline-none focus:outline-none"
                     />
                 </div>
-                <button type="submit" className=" bg-slate-400">{editMode? 'update Transaction' : 'Add Transaction'}</button>
-                {editMode && <button onClick={cancelEditMode}>cancel</button>}
+                <button type="submit" className=" bg-blue-700 text-white py-2 px-3 w-full font-medium rounded-[10px] mb-2">{editMode? 'Update Transaction' : 'Add Transaction'}</button>
+                {editMode && <button onClick={cancelEditMode} className=" bg-red-600 text-white py-2 px-3 w-full font-medium rounded-[10px] mb-2">cancel</button>}
                 {!isLoding && isError && <p className=" text-red-400">there was an error occured</p>}
             </form>
 
