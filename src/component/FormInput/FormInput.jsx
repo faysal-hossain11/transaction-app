@@ -1,14 +1,34 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createTransaction } from "../../feature/Transactions/TransactionSlice";
-import Header from "../header/Header";
+import { changeTransaction, createTransaction } from "../../feature/Transactions/TransactionSlice";
 
-// const {  isLoding, isError } = useSelector((state) => state.transaction);
 const FormInput = () => {
     const [name, setName] = useState('');
     const [amount, setAmount] = useState('');
     const [type, setType] = useState('');
+    const [editMode, setEditMode] = useState(false);
+
+
     const dispatch = useDispatch();
+    
+    const {  isLoding, isError } = useSelector((state) => state.transaction);
+    const {editing} = useSelector((state)=> state.transaction);
+    //listen for edit mode active
+    useEffect(() => {
+    const {id, name, type, amount} = editing || {};
+    if(id){
+        setEditMode(true);
+        setName(name);
+        setType(type);
+        setAmount(amount);
+    }else{
+        reset()
+    }
+    }, [editing]);
+    const cancelEditMode = () => {
+        reset();
+        setEditMode(false);
+    };
 
     const reset = () => {
         setName('');
@@ -24,9 +44,22 @@ const FormInput = () => {
         }));
         reset();
     }
+    const handleUpdate = (e) => {
+        e.preventDefault();
+        dispatch(changeTransaction({
+            id: editing.id,
+            data: {
+                name: name,
+                type: type,
+                amount: amount,
+            }
+        }));
+        setEditMode(false);
+        reset();
+    }
     return (
         <div>
-            <form onSubmit={handleTransaction}>
+            <form onSubmit={editMode ? handleUpdate : handleTransaction}>
                 <div>
                     <label htmlFor="">Name</label>
                     <input type="text" 
@@ -71,8 +104,9 @@ const FormInput = () => {
                     onChange={(e) => setAmount(e.target.value)}
                     />
                 </div>
-                <button type="submit" className=" bg-slate-400">Add Transaction</button>
-                {/* {!isLoding && isError && <p className=" text-red-400">there was an error occured</p>} */}
+                <button type="submit" className=" bg-slate-400">{editMode? 'update Transaction' : 'Add Transaction'}</button>
+                {editMode && <button onClick={cancelEditMode}>cancel</button>}
+                {!isLoding && isError && <p className=" text-red-400">there was an error occured</p>}
             </form>
 
         </div>

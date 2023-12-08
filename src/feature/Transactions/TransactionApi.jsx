@@ -10,12 +10,13 @@ export const addTransaction = async (data) => {
     return res.data;
 };
 
-// export const editTransaction = async (id, data) => {
-//     const res = await axios.put(`http://localhost:3000/transaction/${id}`, data);
-//     return res.data;
-// };
+export const editTransaction = async ({id, data}) => {
+    const res = await axios.put(`http://localhost:3000/transaction/${id}`, data);
+    return res.data;
+}
 
-// export const deleteTransaction = async (id) => {
-//     const res = await axios.delete(`http://localhost:3000/transaction/${id}`);
-//     return res.data;
-// };
+export const deleteTransaction = async (id) => {
+    const res = await axios.delete(`http://localhost:3000/transaction/${id}`);
+    return res.data;
+}
+
